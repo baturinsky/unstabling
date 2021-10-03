@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.13.2",
+    "ts-node-dev": "^1.1.8"
+  },
+  "dependencies": {
+    "@flatten-js/core": "^1.2.27",
+    "ts-node": "^10.2.1"
+  },
+  "scripts": {
+    "build": "node build.js"
+  }
+}

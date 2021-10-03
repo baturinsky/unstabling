@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "lib": [
+       "es6", "dom", "ES2019"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "sourceMap": true
+  }
+}

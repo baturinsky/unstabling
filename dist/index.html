@@ -1,0 +1,114 @@
+<style>
+  * {
+    font: 14pt Courier;
+  }
+
+  body {
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .canvasp {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  canvas {
+    overflow: hidden;
+  }
+
+  #instructions{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border: solid 1px;
+    background-color: #fff;
+  }
+
+  #buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  button {
+    width: 150px;
+  }
+
+  #ui {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  #win {
+    border: solid 3px black;
+    padding: 10px;
+    max-width: 300px;
+    display: inline;
+  }
+
+  #C {
+    width: 700px;
+    height: 700px;
+    border: solid 1px black;
+    box-shadow: 4px 4px #444;
+
+    /*transform: rotate3d(1, 1, 0, -60deg);
+    transform-origin: 500px 500px;*/
+  }
+
+  #B {
+    width: 700px;
+    height: 1600px;
+  }
+
+  button {
+    text-align: center;
+    border: solid 1px black;
+    box-shadow: 4px 4px #444;
+    font: 14pt Courier;
+    cursor: pointer;
+    margin: 0px 30px;
+    overflow: visible;
+  }
+
+  button:hover {
+    background-color: #aaa;
+  }
+
+  #turn {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+  }
+</style>
+
+<div class="canvasp">
+  <canvas id="B"></canvas>
+</div>
+
+<div class="canvasp">
+  <canvas id="C"></canvas>
+</div>
+
+<p id="ui">
+  <button id="undo">[U]ndo</button><br/><br/>
+  <button id="reset">[R]eset</button>
+</p>
+
+<p id="turn">Turn: 0</p>
+
+<p id="buttons">
+  Choose level:<br/>
+</p>
+
+<p id="instructions"></p>
+
+<script src="bundle.js"></script>
