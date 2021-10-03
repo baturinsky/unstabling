@@ -4697,6 +4697,15 @@ M${this.first.start.x},${this.first.start.y}`;
     document.getElementById("turn").innerHTML = `Level: "${level[0]}" Turn: ${moves} Par: ${level[1]} 
   ${win ? `<br/><br/><br/><p id="win">WIN in ${moves} move${moves > 1 ? "s" : ""}</p>` : ""}`;
   }
+  function animateDrop() {
+    for (let i = 0; i < 1; i += 0.05) {
+      setTimeout(() => canvas.style.transform = `rotate3d(${-b.center.y}, ${b.center.x}, 0, ${60 * i}deg)`, i * 1e3);
+    }
+    canvas.style.transformOrigin = `${b.center.x + boardCenter.x}px ${b.center.y + boardCenter.y}px`;
+  }
+  function unanimateDrop() {
+    canvas.style.transform = `rotate3d(0, 0, 0, 0deg)`;
+  }
   function render() {
     calculateCenter();
     updateText();
@@ -4923,7 +4932,12 @@ M${this.first.start.x},${this.first.start.y}`;
     });
     if (bestMove)
       aiMove(bestMove[0], bestMove[1]);
-    calculateCenter();
+    setTimeout(() => {
+      calculateCenter();
+      if (b.center.length > b.stableRadius) {
+        animateDrop();
+      }
+    }, 500);
   }
   function playerMove(from, to) {
     b.history.push(state());
@@ -4935,6 +4949,7 @@ M${this.first.start.x},${this.first.start.y}`;
       restore(b.history.pop());
     }
     render();
+    unanimateDrop();
   }
   function reset() {
     if (b.history.length > 0) {
@@ -5027,6 +5042,7 @@ You can't jump over pieces, or move with the same piece that was just moved by o
     level = levels[n];
     level[2]();
     render();
+    unanimateDrop();
   }
   playLevel(0);
   console.log(possibleMoves(b.nodes[7]).map((n) => n.id));

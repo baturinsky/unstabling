@@ -1,5 +1,5 @@
 import F from '@flatten-js/core'
-import { Node, aiMoving, aiThink, b, calculateCenter, possibleMoves, playerMove, undo, center2, reset, playLevel, par, level } from '.';
+import { Node, aiMoving, aiThink, b, calculateCenter, possibleMoves, playerMove, undo, center2, reset, playLevel, level } from '.';
 const { Point, Vector, Circle, Line, Ray, Segment, Arc, Box, Polygon, Matrix, PlanarSet } = F;
 
 const canvas = document.getElementById("C") as HTMLCanvasElement;
@@ -59,8 +59,21 @@ function updateText() {
   ${win ? `<br/><br/><br/><p id="win">WIN in ${moves} move${moves > 1 ? 's' : ''}</p>` : ''}`;
 }
 
-export function render() {
+export function animateDrop() {
+  for (let i = 0; i < 1; i += 0.05) {
+    setTimeout(
+      () => canvas.style.transform = `rotate3d(${-b.center.y}, ${b.center.x}, 0, ${60 * i}deg)`,
+      i * 1000
+    );
+  }
+  canvas.style.transformOrigin = `${b.center.x + boardCenter.x}px ${b.center.y + boardCenter.y}px`;
+}
 
+export function unanimateDrop() {
+  canvas.style.transform = `rotate3d(0, 0, 0, 0deg)`;
+}
+
+export function render() {
   calculateCenter();
   updateText();
 
@@ -93,8 +106,6 @@ export function render() {
       renderBall(n.at.x, n.at.y, n == b.lastMoved, n.view == "hover");
     }
 
-    //c.fillStyle = "#000";
-    //c.fillText(i.toFixed(), n.at.x + 10, n.at.y - 25);
   });
 
   if (aiMoving) {

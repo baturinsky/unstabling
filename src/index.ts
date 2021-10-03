@@ -1,6 +1,6 @@
 import { rangef, X } from './util';
 import F from '@flatten-js/core'
-import { render } from './render';
+import { animateDrop, render, unanimateDrop } from './render';
 const { Point, Vector, Circle, Line, Ray, Segment, Arc, Box, Polygon, Matrix, PlanarSet } = F;
 
 type NodeView = "hover" | "possible" | "";
@@ -126,8 +126,15 @@ export function aiThink() {
   if (bestMove)
     aiMove(bestMove[0], bestMove[1]);
 
-  calculateCenter();
+  setTimeout(() => {
+    calculateCenter();    
+    if(b.center.length > b.stableRadius){
+      animateDrop();
+    }
+  }, 500);
 }
+
+
 
 export function playerMove(from: Node, to: Node) {
   b.history.push(state());
@@ -140,6 +147,7 @@ export function undo() {
     restore(b.history.pop());
   }
   render();
+  unanimateDrop();
 }
 
 export function reset() {
@@ -234,8 +242,8 @@ const levels = [
   ["Star", 5, () => createBoard(starSegs(5, 250), [2, 3, 6, 8, 9], 54)],
   ["Grid33", 3, () => createBoard(grid(3, 3, 100), [2, 3, 4, 8, 5], 15)],
   ["Grid45", 6, () => createBoard(grid(4, 5, 100), [7, 8, 9, 12, 13, 14], 30)],
-  ["Pentagram", 4, () => createBoard([...starSegs(5, 250), ...starSegs(5, 250,1)], [2, 3, 6, 8, 9], 30)],
-  ["Hex", 4, () => createBoard([...starSegs(6, 250), ...starSegs(6, 250,1)], [2, 3, 6, 8, 9], 35)],
+  ["Pentagram", 4, () => createBoard([...starSegs(5, 250), ...starSegs(5, 250, 1)], [2, 3, 6, 8, 9], 30)],
+  ["Hex", 4, () => createBoard([...starSegs(6, 250), ...starSegs(6, 250, 1)], [2, 3, 6, 8, 9], 35)],
   ["Hex2", 8, () => createBoard([...starSegs(6, 250), ...starSegs(6, 250, 3)], [2, 3, 7, 10, 13, 15], 40)]
 ] as Level[];
 
@@ -259,6 +267,7 @@ export function playLevel(n: number) {
   level = levels[n]
   level[2]();
   render();
+  unanimateDrop();
 }
 
 playLevel(0);
